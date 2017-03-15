@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import styles from './style';
 import {
   AppRegistry,
   StyleSheet,
@@ -26,7 +27,6 @@ export default class Button extends Component {
     );
   }
 }
-
 Button.propTypes = {
   text: React.PropTypes.string,
   onPress: React.PropTypes.func,
@@ -36,18 +36,3 @@ Button.defaultProps = {
   text: 'Button',
   onPress: () => console.log('Button Pressed'),
 };
-
-
-const styles = StyleSheet.create({
-  button: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: "#006789",
-    margin: 5,
-  },
-  buttonText: {
-    color: "#ffffff",
-    fontSize: 16,
-    fontWeight: '500',
-  }
-});

@@ -7,6 +7,10 @@ import React, { Component } from 'react';
 import Button from '../Apps/components/Button/Button';
 import {images} from '../Apps/config/images';
 import {colors} from '../Apps/config/appstyles';
+import {capitalizeFirst} from '../Apps/lib/string';
+import {capitalizeAll} from '../Apps/lib/string';
+import ListMovie from '../Apps/layout/ListMovie';
+
 import {
   AppRegistry,
   StyleSheet,
@@ -23,13 +27,11 @@ export default class Index extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Button text = "thanhdz" onPress={onButtonPress} />
-        <Image source={images.logo}/>
+        <ListMovie/>
       </View>
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {
