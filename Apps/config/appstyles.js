@@ -1,9 +1,20 @@
 export const colors = {
-  background: '#F5F2F9',
+  background: '#006789',
   errorText: '#FA3256',
   headerText: '#444444',
   buttonBackground: '#39BD98',
   buttonText: '#FFFFFF',
   inputBackground: '#FFFFFF',
   inputDivider: '#E4E2E5',
+  titleColor:'#ffffff',
+  descriptionColor:'#fafafa',
+  
+  primary_color_dark:   '#00796B',
+  primary_color:        '#009688',
+  primary_color_light:  '#B2DFDB',
+  primary_color_text:   '#FFFFFF',
+  accent_color:         '#009688',
+  primary_text_color:   '#212121',
+  secondary_text_color: '#757575',
+  divider_color:        '#BDBDBD',
 };

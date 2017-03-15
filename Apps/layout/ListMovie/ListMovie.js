@@ -32,18 +32,21 @@ export default class ListMovie extends Component {
   }
 /*this function will call first */
 componentDidMount(){
-    this.setState({
-      dataSource:this.getMoviesFromApiAsync()
-    });
+    this.getMoviesFromApiAsync()
   }
 
 
  getMoviesFromApiAsync() {
-      return fetch('https://facebook.github.io/react-native/movies.json')
+      return fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed')
         .then((response) => response.json())
         .then((responseJson) => {
           this.setState({isLoading: false, jsonData: responseJson});
           console.log(responseJson);
+           console.log("Update data source: "+ this.state.dataSource.getRowCount());
+           this.setState({ 
+            dataSource: this.state.dataSource.cloneWithRows(responseJson.results)
+           });
+           console.log("Update data source: "+ this.state.dataSource.getRowCount());
           return responseJson;
         })
         .catch((error) => {
@@ -53,37 +56,40 @@ componentDidMount(){
 
 renderRow(property){
   return(
-    //<TouchableOpacity onPress={()=>{this.props.chonCaSi(property.Ten, property.Hinh, property.MoTa)}}>
+    <TouchableOpacity onPress={()=>{alert(property.title+" : ID ="+ property.id)}}>
       <View style={styles.containerItem}>
-
         <View style ={styles.viewBanner}>
-          <Image style={styles.photoBanner} source={{uri:property.Hinh}} />
+          <Image style={styles.photoBanner} source={{uri:'https://image.tmdb.org/t/p/original'+property.poster_path}} />
        </View>
 
       <View style = {styles.viewInfor}>
-        <Text style = {styles.title}>{property.Ten}</Text>
-        <Text style = {styles.description}>{property.Mota}</Text>
+        <Text style = {styles.title}>{property.title}</Text>
+        <Text
+        numberOfLines ={3} 
+        style = {styles.description}>
+          {property.overview}
+        </Text>
       </View>
   </View>
-  //</TouchableOpacity>
+   </TouchableOpacity>
   )
 }
 
   render() {
-     rows = this.dataSource.cloneWithRows(this.state.jsonData.list || [])
-    return (
+    if(this.state.dataSource.getRowCount() === 0 ){
+      var rows = <View><Text style ={styles.description}>Loading.....</Text></View>
+    }else {
+      var rows = 
       <View style={styles.container}>
        <ListView
         dataSource = {this.state.dataSource}
         renderRow  = {this.renderRow}
       />
       </View>
+    }
+
+    return (
+      rows
     );
   }
-}
-
-function CaSi(ten, hinh, mota){
-  this.Ten = ten;
-  this.Hinh = hinh;
-  this.Mota = mota;
 }
