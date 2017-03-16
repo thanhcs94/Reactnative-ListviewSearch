@@ -4,8 +4,26 @@ import { colors } from '../../config/appstyles';
 export default StyleSheet.create({
    container: {
     padding : 16, 
-    marginTop: 30,
+    marginTop: 10,
     backgroundColor:colors.primary_color,
+  },
+  listView:{
+  },
+  boderView:{
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderRadius: 10,
+    flex: .1,
+    height:30,
+    borderColor:'#E4E4E4',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  searchView:{
+    paddingLeft: 16,
+    fontSize: 18,
+    height:30,
+    color:colors.primary_color_text,
   },
 
   containerItem:{

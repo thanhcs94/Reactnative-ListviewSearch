@@ -4,6 +4,7 @@
  * @flow
  */
 import React, { Component } from 'react';
+import SearchBar from 'react-native-search-bar';
 import Button from '../../components/Button/Button';
 import {images} from '../../config/images';
 import {colors} from '../../config/appstyles';
@@ -18,7 +19,9 @@ import {
   View,
   Image,
   ListView,
-  TouchableOpacity
+  TouchableOpacity,
+  TextInput
+
 } from 'react-native';
 
 export default class ListMovie extends Component {
@@ -28,6 +31,8 @@ export default class ListMovie extends Component {
       dataSource: new ListView.DataSource({
         rowHasChanged:(r1, r2) => r1!==r2
       }),
+    data:'',
+    text:''
     }
   }
 /*this function will call first */
@@ -46,6 +51,7 @@ componentDidMount(){
            this.setState({ 
             dataSource: this.state.dataSource.cloneWithRows(responseJson.results)
            });
+           data = responseJson.results;
            console.log("Update data source: "+ this.state.dataSource.getRowCount());
           return responseJson;
         })
@@ -53,6 +59,20 @@ componentDidMount(){
           console.error(error);
         });
     }
+
+filterSearch(text){
+  console.log(text);
+  const newData = data.filter(function(item){
+            const itemData = item.title.toUpperCase()
+            const textData = text.toUpperCase()
+            return itemData.indexOf(textData) > -1
+        })
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(newData),
+            text: text
+        })
+}
+
 
 renderRow(property){
   return(
@@ -77,19 +97,30 @@ renderRow(property){
 
   render() {
     if(this.state.dataSource.getRowCount() === 0 ){
-      var rows = <View><Text style ={styles.description}>Loading.....</Text></View>
+      var rows = <View><Text style ={styles.description}>Loading...</Text></View>
     }else {
       var rows = 
-      <View style={styles.container}>
        <ListView
+        style = {styles.listView}
         dataSource = {this.state.dataSource}
         renderRow  = {this.renderRow}
       />
-      </View>
     }
 
     return (
-      rows
+   <View style={styles.container}>
+      <View style = {styles.boderView}>
+       <TextInput
+       style = {styles.searchView}
+       placeholder ='Search'
+       value = {this.state.text}
+      onChangeText={(text)=>this.filterSearch(text)}
+       placeholderTextColor ={colors.secondary_text_color}
+      />  
+      </View>
+         {rows}
+        </View>
+            
     );
   }
 }
