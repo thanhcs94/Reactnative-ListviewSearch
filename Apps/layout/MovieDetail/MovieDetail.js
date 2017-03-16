@@ -27,16 +27,14 @@ import {
 export class MovieDetail extends Component {
   constructor(props){
     super(props);
-
   }
-
   render() {
-
     return (
-   <View style={styles.container}>
-     <Text> check this one</Text>
-   </View>
-            
+      <View style={{backgroundColor:'yellow', flex:1 }}>
+      <TouchableOpacity onPress = {this.props.clickRed}>
+      <Text style={{marginTop: 50}}>what's fuck'</Text>
+      </TouchableOpacity>
+      </View>
     );
   }
 }

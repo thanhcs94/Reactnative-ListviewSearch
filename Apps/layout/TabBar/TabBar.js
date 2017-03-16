@@ -11,7 +11,7 @@ import {colors} from '../../config/appstyles';
 import {capitalizeFirst} from '../../lib/string';
 import {capitalizeAll} from '../../lib/string';
 import ListMovie from '../../layout/ListMovie/ListMovie';
-import AppRouter from '../../routers/AppRouter/AppRouter';
+import AppRouter from '../../routers/AppRouter';
 //import styles from './styles';
 
 import {
@@ -77,7 +77,6 @@ _renderContent = (color, pageText, num) => {
             });
           }}>
           {
-              //<ListMovie/>
               <AppRouter/>
           }
         </TabBarIOS.Item>
