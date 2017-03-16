@@ -11,6 +11,7 @@ import {capitalizeFirst} from '../Apps/lib/string';
 import {capitalizeAll} from '../Apps/lib/string';
 import ListMovie from '../Apps/layout/ListMovie';
 import TabBar from '../Apps/layout/TabBar';
+import AppRouter from '../Apps/routers/AppRouter';
 
 import {
   AppRegistry,
@@ -28,7 +29,7 @@ export default class Index extends Component {
   render() {
     return (
      // <View style={styles.container}>
-        <TabBar/>
+        <AppRouter/>
      // </View>
     );
   }

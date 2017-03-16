@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import Index from './Apps';
+import AppRouter from './Apps/routers/AppRouter';
 import {
   AppRegistry,
   StyleSheet,
@@ -16,7 +17,7 @@ import {
 export default class PrWe1 extends Component {
   render() {
     return (
-      <Index/>
+      <AppRouter/>
     );
   }
 }

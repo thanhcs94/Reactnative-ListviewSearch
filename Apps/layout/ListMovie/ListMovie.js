@@ -11,6 +11,7 @@ import {colors} from '../../config/appstyles';
 import {capitalizeFirst} from '../../lib/string';
 import {capitalizeAll} from '../../lib/string';
 import styles from './styles';
+import MovieDetail from '../MovieDetail/MovieDetail';
 
 import {
   AppRegistry,
@@ -76,7 +77,9 @@ filterSearch(text){
 
 renderRow(property){
   return(
-    <TouchableOpacity onPress={()=>{alert(property.title+" : ID ="+ property.id)}}>
+    <TouchableOpacity onPress={()=>{return(
+      <MovieDetail/>
+      )}}>
       <View style={styles.containerItem}>
         <View style ={styles.viewBanner}>
           <Image style={styles.photoBanner} source={{uri:'https://image.tmdb.org/t/p/original'+property.poster_path}} />
@@ -114,7 +117,7 @@ renderRow(property){
        style = {styles.searchView}
        placeholder ='Search'
        value = {this.state.text}
-      onChangeText={(text)=>this.filterSearch(text)}
+       onChangeText={(text)=>this.filterSearch(text)}
        placeholderTextColor ={colors.secondary_text_color}
       />  
       </View>
