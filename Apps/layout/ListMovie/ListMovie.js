@@ -36,6 +36,7 @@ export default class ListMovie extends Component {
     text:''
     }
   }
+
 /*this function will call first */
 componentDidMount(){
     this.getMoviesFromApiAsync()
@@ -77,9 +78,7 @@ filterSearch(text){
 
 renderRow(property){
   return(
-    <TouchableOpacity onPress={()=>{return(
-      <MovieDetail/>
-      )}}>
+    <TouchableOpacity onPress={()=>{this.props.onClickDetail(property.id)}}>
       <View style={styles.containerItem}>
         <View style ={styles.viewBanner}>
           <Image style={styles.photoBanner} source={{uri:'https://image.tmdb.org/t/p/original'+property.poster_path}} />
@@ -100,13 +99,14 @@ renderRow(property){
 
   render() {
     if(this.state.dataSource.getRowCount() === 0 ){
-      var rows = <View><Text style ={styles.description}>Loading...</Text></View>
+      var rows = <View style={styles.container}><Text style ={styles.description}>Loading...</Text></View>
     }else {
       var rows = 
        <ListView
         style = {styles.listView}
         dataSource = {this.state.dataSource}
-        renderRow  = {this.renderRow}
+        renderRow  = {this.renderRow.bind(this)}
+        // use bind this to send context :  if not , props is not define in render row
       />
     }
 
@@ -120,7 +120,7 @@ renderRow(property){
        onChangeText={(text)=>this.filterSearch(text)}
        placeholderTextColor ={colors.secondary_text_color}
       />  
-      </View>
+      </View >
          {rows}
         </View>
             

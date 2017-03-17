@@ -7,6 +7,7 @@
 //Step 1 : import library
 import React, { Component } from 'react';
 import ListMovie from '../layout/ListMovie/ListMovie';
+import MovieDetail from '../layout/MovieDetail/MovieDetail';
 import {
   AppRegistry,
   StyleSheet,
@@ -22,17 +23,21 @@ export default class AppRouter extends Component {
  renderScene(route,navigator){
     switch (route.name) {
 
-      case "List":  return (<ListMovie clickRed={()=>{
-        navigator.push({name:"Detail"},
+      case "List":  return (<ListMovie onClickDetail={(mId)=>{
+        navigator.push({
+          name:"Detail",
+          para:{mId:mId}
+          }
       );
       }}
       />);
 
-      case "Detail": return <Detailsss clickRed={()=>{
-        navigator.push({name:"List"},
-      );
-      }}>
-      </Detailsss>
+      case "Detail": return (<MovieDetail clickRed={()=>{
+        navigator.pop();
+      }}
+       mId={route.para.mId}
+      />)
+    
         break;
       default:
     }
@@ -46,20 +51,3 @@ export default class AppRouter extends Component {
     )
   }
 }
-
-class Detailsss extends Component {
-
-  constructor(props){
-    super(props);
-  }
-  render() {
-    return (
-      <View style={{backgroundColor:'yellow', flex:1 }}>
-      <TouchableOpacity onPress = {this.props.clickRed}>
-      <Text style={{marginTop: 50}}>what's fuck'</Text>
-      </TouchableOpacity>
-      </View>
-    );
-  }
-}
-

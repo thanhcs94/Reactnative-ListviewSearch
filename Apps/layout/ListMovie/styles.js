@@ -3,18 +3,21 @@ import { colors } from '../../config/appstyles';
 
 export default StyleSheet.create({
    container: {
-    padding : 16, 
-    marginTop: 10,
+    paddingRight : 16,
+    paddingLeft : 16,
+    paddingBottom : 16,
+    paddingTop : 32,
     backgroundColor:colors.primary_color,
   },
   listView:{
+    paddingTop:4,
+    backgroundColor:colors.primary_color
   },
   boderView:{
     borderWidth: 1,
     borderStyle: 'solid',
     borderRadius: 10,
-    flex: .1,
-    height:30,
+    height:40,
     borderColor:'#E4E4E4',
     justifyContent: 'center',
     alignItems: 'center'
