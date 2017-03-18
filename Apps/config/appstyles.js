@@ -17,4 +17,7 @@ export const colors = {
   primary_text_color:   '#212121',
   secondary_text_color: '#757575',
   divider_color:        '#BDBDBD',
+  tabbar_selected : '#FFFFFF',
+  tabbar_unselected: '#757575',
+  movie_detail_banner_color:   '#015e79',
 };

@@ -36,7 +36,7 @@ export default StyleSheet.create({
     marginBottom:8,
     marginBottom: 1,
     paddingBottom:8,
-    borderBottomWidth: 0.7,
+    borderBottomWidth: 0.9,
     borderBottomColor: colors.divider_color
   
   }, 

@@ -10,6 +10,7 @@ import {images} from '../../config/images';
 import {colors} from '../../config/appstyles';
 import {capitalizeFirst} from '../../lib/string';
 import {capitalizeAll} from '../../lib/string';
+import Loading from '../../components/Loading/Loading';
 import styles from './styles';
 
 import {
@@ -26,55 +27,71 @@ import {
 
 export default class MovieDetail extends Component {
 
-  constructor(props){
-    super(props);
-    this.state={
-    data:'-1',
-    movie_id:this.props.mId // Get value(s)
-  }
-  }
-  /*this function will call first */
-componentDidMount(){
-    this.getMoviesFromApiAsync()
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: '-1',
+            movie_id: this.props.mId // Get value(s)
+        }
+    }
 
- getMoviesFromApiAsync() {
-      return fetch('https://api.themoviedb.org/3/movie/'+this.state.movie_id+'?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US')
-        .then((response) => response.json())
-        .then((responseJson) => {
-          this.setState({isLoading: false, jsonData: responseJson});
-          console.log(responseJson);
-          console.log("Movie detail : "+ responseJson.overview);
-          this.setState({ 
-            data: responseJson
-           });
-          return responseJson;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+    /*this function will call first */
+    componentDidMount() {
+        this.getMoviesFromApiAsync()
+    }
+
+    getMoviesFromApiAsync() {
+        return fetch('https://api.themoviedb.org/3/movie/' + this.state.movie_id + '?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({isLoading: false, jsonData: responseJson});
+                console.log(responseJson);
+                console.log("Movie detail : " + responseJson.overview);
+                this.setState({
+                    data: responseJson
+                });
+                return responseJson;
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    getTimeofMovie(){
+        var time = this.state.data.time%60;
+        return 1;
     }
 
   render() {
     return (
       <View style={styles.container}>
       <TouchableOpacity onPress = {this.props.clickRed}>
-       
         <View style={{marginLeft:4,flexDirection: 'row'}}>
-        <Image style = {{width: 20, height:20}} source={images.ic_backpress} />
+        <Image style = {{width: 20, height:20, marginBottom:8}} source={images.ic_backpress} />
         <Text style={styles.textBack}>Back</Text>
         </View>
      </TouchableOpacity>
+
       <View style = {styles.viewPhoto}>
-      
-      <Image style={styles.photoBanner} source={{uri:'https://image.tmdb.org/t/p/original'+this.state.data.poster_path}} />
-       
-       
-       <View style ={{backgroundColor:'#FF0000',opacity:0.6,width:300,maxWidth:300, height:200, position: 'absolute', bottom: 0, flexDirection:'row', marginLeft:30, marginRight:30,}}>
-          <Text>{this.state.data.original_title}</Text>
-           <Text>{this.state.data.overview}</Text>
-            <Text>{this.state.data.release_date}</Text>
-             <Text>{this.state.data.runtime}</Text>
+      {/*<Loading style={{alignItems:'center', flex:1}}/>*/}
+      <Image style={styles.photoBanner} source={{uri:'https://image.tmdb.org/t/p/original/'+this.state.data.poster_path}} />
+      <View style ={styles.viewInformation}>
+          <Text style={styles.title}>{this.state.data.original_title}</Text>
+          <Text style= {styles.textDateTime}>{this.state.data.release_date}</Text>
+          <View style  = {{flexDirection:'row', flex:2, maxHeight:30, height:30 , marginLeft:8, marginTop:4}} >
+
+            <View style  = {{flexDirection:'row', flex:1, alignItems:'center'}}>
+              <Image source = {images.ic_date} style ={{width:16, height:16}}/>
+              <Text style= {styles.textMovieInfor}>69%</Text>
+            </View>
+
+            <View style  = {{flexDirection:'row', flex:1, alignItems:'center'}}>
+              <Image source = {images.ic_time} style ={{width:20, height:20}}/>
+              <Text style= {styles.textMovieInfor}>{getTimeofMovie()}</Text>
+            </View>
+            
+          </View>
+          <Text style={styles.description} numberOfLines={5}>{this.state.data.overview}</Text>
        </View>  
 
       </View>

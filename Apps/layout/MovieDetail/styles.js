@@ -13,11 +13,55 @@ export default StyleSheet.create({
   },
   photoBanner:{
     flex: 1,
+    alignItems:'stretch',
     width: null,
     height: null,
 
   }, 
   viewPhoto:{
     flex: 1,
+  }, 
+  viewInformation:{
+    backgroundColor: colors.movie_detail_banner_color,
+    opacity:0.9,
+    height:230,
+    position: 'absolute',
+    bottom: 0,
+    marginLeft:30, 
+    marginRight:30,
+  },
+    title:{
+    fontFamily: 'Cochin',
+    fontSize: 20,
+    fontWeight: 'bold',
+    alignItems:'center',
+    marginTop:10,
+    marginLeft:8,
+    color : colors.primary_color_text,
+    justifyContent:'center',
+  },
+  textDateTime:{
+      marginTop:16,
+      marginLeft:8,
+      marginRight:8,
+      color : colors.primary_color_light,
+      alignItems:'flex-start',
+      fontSize: 14,
+  },
+  textMovieInfor:{
+      marginLeft:8,
+      marginRight:8,
+      color : colors.primary_color_light,
+      alignItems:'flex-start',
+      fontSize: 14,
+  },
+  description: {
+      marginTop:4,
+      marginLeft:8,
+      marginRight:8,
+      color : colors.primary_color_light,
+      alignItems:'flex-start',
+      fontSize: 14,
+      fontWeight: 'bold',
   }
 });
