@@ -35,6 +35,7 @@ export default class MovieDetail extends Component {
         }
     }
 
+
     /*this function will call first */
     componentDidMount() {
         this.getMoviesFromApiAsync()
@@ -57,12 +58,8 @@ export default class MovieDetail extends Component {
             });
     }
 
-    getTimeofMovie(){
-        var time = this.state.data.time%60;
-        return 1;
-    }
-
   render() {
+
     return (
       <View style={styles.container}>
       <TouchableOpacity onPress = {this.props.clickRed}>
@@ -87,7 +84,7 @@ export default class MovieDetail extends Component {
 
             <View style  = {{flexDirection:'row', flex:1, alignItems:'center'}}>
               <Image source = {images.ic_time} style ={{width:20, height:20}}/>
-              <Text style= {styles.textMovieInfor}>{getTimeofMovie()}</Text>
+              <Text style= {styles.textMovieInfor}>{this._call()}</Text>
             </View>
             
           </View>
@@ -98,6 +95,19 @@ export default class MovieDetail extends Component {
       </View>
     );
   }
+
+    _call(){
+        var timeMV = this.state.data.runtime;
+        var hour = parseInt(timeMV/60);
+        var minutes = timeMV%60;
+        var t ="";
+        var s ="";
+        if(parseInt(hour)>0)
+            t = hour+" hour";
+        if(parseInt(hour)>0)
+            s = minutes+" minutes";
+        return t+" "+s;
+    }
 }
 
 
