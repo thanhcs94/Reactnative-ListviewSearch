@@ -9,7 +9,9 @@
   "dependencies": {
     "react": "15.4.2",
     "react-native": "0.42.0",
+    "react-native-image-progress": "^0.6.0",
     "react-native-material-design-searchbar": "^1.1.0",
+    "react-native-progress": "^3.2.0",
     "react-native-search-bar": "^3.0.0",
     "react-native-searchbar": "^1.8.0"
   },

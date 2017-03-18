@@ -12,13 +12,14 @@ import {capitalizeFirst} from '../../lib/string';
 import {capitalizeAll} from '../../lib/string';
 import Loading from '../../components/Loading/Loading';
 import styles from './styles';
+import Image from 'react-native-image-progress';
+import ProgressBar from 'react-native-progress/Bar';
 
 import {
   AppRegistry,
   StyleSheet,
   Text,
   View,
-  Image,
   ListView,
   TouchableOpacity,
   TextInput
@@ -71,7 +72,11 @@ export default class MovieDetail extends Component {
 
       <View style = {styles.viewPhoto}>
       {/*<Loading style={{alignItems:'center', flex:1}}/>*/}
-      <Image style={styles.photoBanner} source={{uri:'https://image.tmdb.org/t/p/original/'+this.state.data.poster_path}} />
+      <Image
+          style={styles.photoBanner}
+          source={{uri:'https://image.tmdb.org/t/p/original/'+this.state.data.poster_path}}
+          indicator={ProgressBar}
+      />
       <View style ={styles.viewInformation}>
           <Text style={styles.title}>{this.state.data.original_title}</Text>
           <Text style= {styles.textDateTime}>{this.state.data.release_date}</Text>
@@ -108,6 +113,44 @@ export default class MovieDetail extends Component {
             s = minutes+" minutes";
         return t+" "+s;
     }
+
+     _timeDifference(previous) {
+
+        var current = new Date().getTime();
+        console.log("datetime "+ current);
+        var msPerMinute = 60 * 1000;
+        var msPerHour = msPerMinute * 60;
+        var msPerDay = msPerHour * 24;
+        var msPerMonth = msPerDay * 30;
+        var msPerYear = msPerDay * 365;
+
+        var elapsed = current - previous;
+
+        if (elapsed < msPerMinute) {
+            return Math.round(elapsed/1000) + ' seconds ago';
+        }
+
+        else if (elapsed < msPerHour) {
+            return Math.round(elapsed/msPerMinute) + ' minutes ago';
+        }
+
+        else if (elapsed < msPerDay ) {
+            return Math.round(elapsed/msPerHour ) + ' hours ago';
+        }
+
+        else if (elapsed < msPerMonth) {
+            return 'approximately ' + Math.round(elapsed/msPerDay) + ' days ago';
+        }
+
+        else if (elapsed < msPerYear) {
+            return 'approximately ' + Math.round(elapsed/msPerMonth) + ' months ago';
+        }
+
+        else {
+            return 'approximately ' + Math.round(elapsed/msPerYear ) + ' years ago';
+        }
+    }
+
 }
 
 

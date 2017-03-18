@@ -16,6 +16,7 @@ export default StyleSheet.create({
     alignItems:'stretch',
     width: null,
     height: null,
+      justifyContent:'center'
 
   }, 
   viewPhoto:{
