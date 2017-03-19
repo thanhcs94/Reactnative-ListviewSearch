@@ -9,6 +9,7 @@ const Loading = (props) => {
         animating
         size={props.size}
         {...props}
+        style ={styles.container}
       />
     </View>
   );
@@ -20,5 +21,6 @@ Loading.propTypes = {
 
 Loading.defaultProps = {
   size: 'large',
+  color:'#ffffff'
 };
 export default Loading;

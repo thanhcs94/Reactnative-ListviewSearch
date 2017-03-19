@@ -24,7 +24,6 @@ import {
   TouchableOpacity,
   TextInput,
   TabBarIOS,
-  StatusBar
 
 } from 'react-native';
 
@@ -44,27 +43,35 @@ export default class TabBar extends Component {
     };
 
     constructor() 
-    { 
-        super(); 
-        this.state = { 
-           selectedTab: 'nowPlay',
+    {
+        super();
+        this.state = {
+            selectedTab: 'nowPlay',
             notifCount: 0,
             presses: 0,
-        }; 
+        };
     }
 
 _renderContent = (color, pageText, num) => {
     return (
+
       <View style={[styles.tabContent, {backgroundColor: color}]}>
-        <Text style={styles.tabText}>{pageText}</Text>
-        <Text style={styles.tabText}>{num} re-renders of the {pageText}</Text>
-      </View>
+          <Text style={styles.tabText}>{pageText}</Text>
+          <View style={[styles.tabContent, {backgroundColor: color}]}>
+            <Image
+                style={{width:70 , height:70}}
+                source={images.logo}>
+            </Image>
+
+            <Text style={styles.tabText}>Thanh Nguyen</Text>
+            <Text style={styles.tabText}>Twitter : /twitter.com/thanhcs94</Text>
+          </View>
+        </View>
     );
   };
 
   render() {
     return (
-
       <TabBarIOS
         unselectedTintColor = {colors.tabbar_unselected}
         tintColor={colors.tabbar_selected}
@@ -82,40 +89,39 @@ _renderContent = (color, pageText, num) => {
             });
           }}>
           {
-              <AppRouter/>
+              <AppRouter url = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed" />
           }
         </TabBarIOS.Item>
 
         <TabBarIOS.Item
           icon={{uri: topRateBase64, scale: 2}}
-          badge={this.state.notifCount > 0 ? this.state.notifCount : undefined}
-          badgeColor="black"
           title = "Top Rate"
           selected={this.state.selectedTab === 'topRate'}
           onPress={() => {
             this.setState({
               selectedTab: 'topRate',
-              notifCount: this.state.notifCount + 1,
             });
           }}>
           {
-              this._renderContent('#783E33', 'Top Rate', this.state.notifCount)
+              <AppRouter url = "https://api.themoviedb.org/3/movie/top_rated?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed" />
           }
         </TabBarIOS.Item>
 
 
         <TabBarIOS.Item
           icon={{uri: profileBase64, scale: 2}}
+          badge={this.state.notifCount > 0 ? this.state.notifCount : undefined}
           badgeColor="black"
           title = "Profile"
           selected={this.state.selectedTab === 'profile'}
           onPress={() => {
             this.setState({
               selectedTab: 'profile',
+              notifCount: this.state.notifCount + 1,
             });
           }}>
           {
-              this._renderContent(colors.primary_color, 'profile', -99999)
+              this._renderContent(colors.primary_color, 'profile', this.state.notifCount)
           }
         </TabBarIOS.Item>
 
@@ -128,9 +134,14 @@ var styles = StyleSheet.create({
   tabContent: {
     flex: 1,
     alignItems: 'center',
+    justifyContent:'center',
+    paddingTop:20
   },
   tabText: {
     color: 'white',
-    margin: 50,
+    margin: 8,
+    fontSize:16,
+    alignItems: 'center',
+    justifyContent:'center',
   },
 });

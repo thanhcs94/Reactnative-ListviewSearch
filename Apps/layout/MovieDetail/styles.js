@@ -13,24 +13,28 @@ export default StyleSheet.create({
   },
   photoBanner:{
     flex: 1,
-    alignItems:'stretch',
+    alignItems:'center',
     width: null,
     height: null,
-      justifyContent:'center'
+    justifyContent:'center'
 
   }, 
   viewPhoto:{
     flex: 1,
+    alignItems:'stretch',
+    justifyContent:'center'
   }, 
   viewInformation:{
-    backgroundColor: colors.movie_detail_banner_color,
     opacity:0.9,
-    height:230,
     position: 'absolute',
     bottom: 0,
-    marginLeft:30, 
-    marginRight:30,
+    justifyContent:'flex-end'
   },
+   page:{
+        bottom: 0,
+        marginLeft:30,
+        marginRight:30,
+    },
     title:{
     fontFamily: 'Cochin',
     fontSize: 20,

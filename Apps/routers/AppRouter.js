@@ -18,12 +18,11 @@ import {
   Image,
   TextInput,
   ListView,} from 'react-native';
-  
+
 export default class AppRouter extends Component {
  renderScene(route,navigator){
     switch (route.name) {
-
-      case "List":  return (<ListMovie onClickDetail={(mId)=>{
+        case "List":  return (<ListMovie url = {this.props.url} onClickDetail={(mId)=>{
         navigator.push({
           name:"Detail",
           para:{mId:mId}
@@ -32,7 +31,7 @@ export default class AppRouter extends Component {
       }}
       />);
 
-      case "Detail": return (<MovieDetail clickRed={()=>{
+      case "Detail": return (<MovieDetail clickBack={()=>{
         navigator.pop();
       }}
        mId={route.para.mId}
@@ -46,7 +45,8 @@ export default class AppRouter extends Component {
     return (
       <Navigator
         initialRoute = {{name:"List"}}
-        renderScene  = {this.renderScene}
+        renderScene  = {this.renderScene.bind(this)}
+        //this to send context
       />
     )
   }

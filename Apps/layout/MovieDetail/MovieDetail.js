@@ -22,7 +22,10 @@ import {
   View,
   ListView,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  Animated,
+  ScrollView,
+  LayoutAnimation
 
 } from 'react-native';
 
@@ -32,8 +35,33 @@ export default class MovieDetail extends Component {
         super(props);
         this.state = {
             data: '-1',
-            movie_id: this.props.mId // Get value(s)
+            movie_id: this.props.mId, // Get value(s)
+            height: 200,
+            line : 4,
+            marginScroll: 500
         }
+    }
+
+
+    clickToOpen(){
+        var height = this.state.height;
+        var line = this.state.line;
+        var marginScroll = this.state.marginScroll;
+        if(height == 200){
+            height = 50;
+            line = 0
+            marginScroll = 100
+        }else{
+            height = 200;
+            line = 4
+            marginScroll = 500
+        }
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+        this.setState({
+            height,
+            line,
+            marginScroll
+        })
     }
 
 
@@ -60,10 +88,12 @@ export default class MovieDetail extends Component {
     }
 
   render() {
-
+      var height = this.state.height;
+      var line = this.state.line; // 0: will be showed all lines
+      var marginScroll = this.state.marginScroll;
     return (
       <View style={styles.container}>
-      <TouchableOpacity onPress = {this.props.clickRed}>
+      <TouchableOpacity onPress = {this.props.clickBack}>
         <View style={{marginLeft:4,flexDirection: 'row'}}>
         <Image style = {{width: 20, height:20, marginBottom:8}} source={images.ic_backpress} />
         <Text style={styles.textBack}>Back</Text>
@@ -77,23 +107,31 @@ export default class MovieDetail extends Component {
           source={{uri:'https://image.tmdb.org/t/p/original/'+this.state.data.poster_path}}
           indicator={ProgressBar}
       />
-      <View style ={styles.viewInformation}>
-          <Text style={styles.title}>{this.state.data.original_title}</Text>
-          <Text style= {styles.textDateTime}>{this.state.data.release_date}</Text>
-          <View style  = {{flexDirection:'row', flex:2, maxHeight:30, height:30 , marginLeft:8, marginTop:4}} >
 
-            <View style  = {{flexDirection:'row', flex:1, alignItems:'center'}}>
-              <Image source = {images.ic_date} style ={{width:16, height:16}}/>
-              <Text style= {styles.textMovieInfor}>69%</Text>
-            </View>
+      <View style ={[styles.viewInformation]}>
+          <ScrollView
+              style={{}}>
+              <TouchableOpacity onPress={() => this.clickToOpen()}>
+                  <View style={[styles.page, {backgroundColor:colors.movie_detail_banner_color,marginTop: marginScroll}]}>
 
-            <View style  = {{flexDirection:'row', flex:1, alignItems:'center'}}>
-              <Image source = {images.ic_time} style ={{width:20, height:20}}/>
-              <Text style= {styles.textMovieInfor}>{this._call()}</Text>
-            </View>
-            
-          </View>
-          <Text style={styles.description} numberOfLines={5}>{this.state.data.overview}</Text>
+                      <Text style={styles.title}>{this.state.data.original_title}</Text>
+                      <Text style= {styles.textDateTime}>{this.state.data.release_date}</Text>
+                      <View style  = {{flexDirection:'row', flex:2, maxHeight:30, height:30 , marginLeft:8, marginTop:4}} >
+
+                        <View style  = {{flexDirection:'row', flex:1, alignItems:'center'}}>
+                          <Image source = {images.ic_date} style ={{width:16, height:16}}/>
+                          <Text style= {styles.textMovieInfor}>69%</Text>
+                        </View>
+
+                        <View style  = {{flexDirection:'row', flex:1, alignItems:'center'}}>
+                          <Image source = {images.ic_time} style ={{width:20, height:20}}/>
+                          <Text style= {styles.textMovieInfor}>{this._call()}</Text>
+                        </View>
+                      </View>
+                      <Text style={styles.description} numberOfLines={line}>{this.state.data.overview}</Text>
+                  </View>
+              </TouchableOpacity>
+          </ScrollView>
        </View>  
 
       </View>
@@ -229,3 +267,4 @@ export default class MovieDetail extends Component {
   "vote_count": 1325
 }
 */
+

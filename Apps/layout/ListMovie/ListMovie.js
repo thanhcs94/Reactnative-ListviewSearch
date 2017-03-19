@@ -21,7 +21,9 @@ import {
   Image,
   ListView,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  RefreshControl,
+  StatusBar
 
 } from 'react-native';
 
@@ -33,18 +35,25 @@ export default class ListMovie extends Component {
         rowHasChanged:(r1, r2) => r1!==r2
       }),
     data:'',
-    text:''
+    text:'',
+    refreshing: false,
     }
   }
 
+  _onRefresh() {
+      this.setState({refreshing: true});
+      this.getMoviesFromApiAsync().then(() => {
+          this.setState({refreshing: false});
+      });
+  }
 /*this function will call first */
 componentDidMount(){
     this.getMoviesFromApiAsync()
   }
 
-
+//https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed
  getMoviesFromApiAsync() {
-      return fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed')
+      return fetch(this.props.url)
         .then((response) => response.json())
         .then((responseJson) => {
           this.setState({isLoading: false, jsonData: responseJson});
@@ -103,6 +112,12 @@ renderRow(property){
     }else {
       var rows = 
        <ListView
+           refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh.bind(this)}
+          />
+        }
         style = {styles.listView}
         dataSource = {this.state.dataSource}
         renderRow  = {this.renderRow.bind(this)}
@@ -112,6 +127,7 @@ renderRow(property){
 
     return (
    <View style={styles.container}>
+      <StatusBar barStyle = "light-content"/>
       <View style = {styles.boderView}>
        <TextInput
        style = {styles.searchView}
