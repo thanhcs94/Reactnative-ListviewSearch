@@ -107,8 +107,8 @@ renderRow(property){
 }
 
   render() {
-    if(this.state.dataSource.getRowCount() === 0 ){
-      var rows = <View style={styles.container}><Text style ={styles.description}>Loading...</Text></View>
+    if(this.state.dataSource.getRowCount() === 0){
+        var rows = <View style={styles.container}><Text style ={styles.description}>Loading...</Text></View>
     }else {
       var rows = 
        <ListView
